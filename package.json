@@ -1,5 +1,6 @@
 {
   "name": "lotusmeditation",
+  "version": "0.1.0",
   "description": "Lotus Meditation — personal site built with Astro, deployed on GitHub Pages.",
   "dependencies": {
     "@astrojs/mdx": "4.3.13",
