@@ -6,7 +6,7 @@ The official landing page and blog for **Lotus Meditation** — a non-profit clu
 - 💛 **100% free** — no fees, no ads, no commercial intent.
 - 🤝 **Community-driven** — run by volunteers, open to everyone.
 
-Built with [Astro](https://astro.build) and deployed on [GitHub Pages](https://pages.github.com). A Cloudflare Workers deployment is planned for the future.
+Built with [Astro](https://astro.build) and deployed on [GitHub Pages](https://pages.github.com). 
 
 # Astro Starter Kit: Blog
 
