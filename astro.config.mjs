@@ -5,6 +5,6 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://lotusmeditation.github.io",
+	site: "https://lotusmeditation.org",
 	integrations: [mdx(), sitemap()],
 });
