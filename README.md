@@ -1,6 +1,12 @@
-# What is the project
+# Lotus Meditation
 
-Astro Landing Page and Blogs for Lotus Meditation - a club which help become a better person of ourself via bien-etre et meditation. 100% Free and Not Beneficial.
+The official landing page and blog for **Lotus Meditation** — a non-profit club dedicated to helping people grow into better versions of themselves through *bien-être* and meditation practice.
+
+- 🌱 **Mission:** Promote well-being, mindfulness, and personal growth through accessible meditation.
+- 💛 **100% free** — no fees, no ads, no commercial intent.
+- 🤝 **Community-driven** — run by volunteers, open to everyone.
+
+Built with [Astro](https://astro.build) and deployed on [GitHub Pages](https://pages.github.com). A Cloudflare Workers deployment is planned for the future.
 
 # Astro Starter Kit: Blog
 
