@@ -7,4 +7,16 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
 	site: "https://lotusmeditation.org",
 	integrations: [mdx(), sitemap()],
+	i18n: {
+		defaultLocale: "en",
+		locales: ["en", "fr", "vi"],
+		fallback: { fr: "en", vi: "en" },
+		routing: {
+			prefixDefaultLocale: true,
+			fallbackType: "rewrite",
+		},
+	},
+	redirects: {
+		"/": "/en/",
+	},
 });

@@ -1,8 +1,12 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+
+const locale = Astro.currentLocale ?? 'en';
+const homeUrl = getRelativeLocaleUrl(locale, '');
 ---
 
 <!doctype html>
@@ -31,7 +35,7 @@ import { SITE_TITLE } from '../consts';
 				</blockquote>
 
 				<div class="actions">
-					<a class="btn primary" href="/">Return home</a>
+					<a class="btn primary" href={homeUrl}>Return home</a>
 				</div>
 			</section>
 		</main>

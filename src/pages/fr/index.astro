@@ -1,0 +1,112 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+const description =
+	"Un club à but non lucratif qui œuvre pour le bien-être et le développement personnel par la méditation. 100% gratuit, animé par une communauté, ouvert à toutes et à tous.";
+---
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<BaseHead title={SITE_TITLE} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>Bienvenue à Lotus Meditation</h1>
+				<p class="lead">
+					Un club à but non lucratif qui aide chacune et chacun à devenir une
+					meilleure version de soi-même grâce au <em>bien-être</em> et à la méditation.
+					100% gratuit, porté par la communauté, ouvert à tout le monde.
+				</p>
+			</section>
+
+			<section class="pillars">
+				<article>
+					<img src="/blog-placeholder-2.jpg" alt="" />
+					<h2>🌱 Bien-être</h2>
+					<p>Des pratiques simples pour apporter plus de calme, de concentration et d'équilibre au quotidien.</p>
+				</article>
+				<article>
+					<img src="/blog-placeholder-3.jpg" alt="" />
+					<h2>🧘 Méditation</h2>
+					<p>Des séances guidées et des techniques douces, accessibles aux débutants comme aux pratiquants réguliers.</p>
+				</article>
+				<article>
+					<img src="/blog-placeholder-4.jpg" alt="" />
+					<h2>🤝 Communauté</h2>
+					<p>Animé par des bénévoles, pour tout le monde. Sans frais, sans publicité — juste une pratique partagée et de la croissance personnelle.</p>
+				</article>
+			</section>
+
+			<section class="cta">
+				<h2>Restez à l'écoute — le site est en construction 🚧</h2>
+				<p>
+					Nous mettons les choses en place. Revenez bientôt pour des articles,
+					des réflexions et des notes de pratique partagées par la communauté.
+				</p>
+			</section>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 3em 1em;
+			}
+			.hero {
+				text-align: center;
+				margin-bottom: 4rem;
+				padding-top: 2rem;
+			}
+			.hero h1 {
+				font-size: 2.5rem;
+				margin: 0 0 0.5rem;
+			}
+			.lead {
+				font-size: 1.15rem;
+				color: rgb(var(--gray-dark));
+				max-width: 640px;
+				margin: 0 auto;
+			}
+			.pillars {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 2rem;
+				margin-bottom: 4rem;
+			}
+			.pillars article {
+				text-align: center;
+			}
+			.pillars img {
+				width: 100%;
+				height: 160px;
+				object-fit: cover;
+				border-radius: 10px;
+				margin-bottom: 1rem;
+			}
+			.pillars h2 {
+				font-size: 1.25rem;
+				margin: 0 0 0.5rem;
+			}
+			.pillars p {
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
+				margin: 0;
+			}
+			.cta {
+				text-align: center;
+				padding: 2rem 1rem;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.cta h2 {
+				margin: 0 0 0.5rem;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,112 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+
+const description =
+	"Một câu lạc bộ phi lợi nhuận thúc đẩy sự an lạc và phát triển bản thân thông qua thiền định. 100% miễn phí, do cộng đồng dẫn dắt, mở cửa cho tất cả mọi người.";
+---
+
+<!doctype html>
+<html lang="vi">
+	<head>
+		<BaseHead title={SITE_TITLE} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>Chào mừng đến với Lotus Meditation</h1>
+				<p class="lead">
+					Một câu lạc bộ phi lợi nhuận giúp mỗi chúng ta trở thành phiên bản
+					tốt hơn của chính mình thông qua <em>sự an lạc</em> và thiền định.
+					100% miễn phí, do cộng đồng dẫn dắt, mở cửa cho tất cả mọi người.
+				</p>
+			</section>
+
+			<section class="pillars">
+				<article>
+					<img src="/blog-placeholder-2.jpg" alt="" />
+					<h2>🌱 An lạc</h2>
+					<p>Những thực hành đơn giản mang đến sự bình an, tập trung và cân bằng hơn trong cuộc sống hàng ngày.</p>
+				</article>
+				<article>
+					<img src="/blog-placeholder-3.jpg" alt="" />
+					<h2>🧘 Thiền định</h2>
+					<p>Các buổi hướng dẫn và những kỹ thuật nhẹ nhàng, phù hợp với cả người mới bắt đầu lẫn người thực hành thường xuyên.</p>
+				</article>
+				<article>
+					<img src="/blog-placeholder-4.jpg" alt="" />
+					<h2>🤝 Cộng đồng</h2>
+					<p>Được vận hành bởi các tình nguyện viên, dành cho tất cả mọi người. Không phí, không quảng cáo — chỉ có sự thực hành và phát triển cùng nhau.</p>
+				</article>
+			</section>
+
+			<section class="cta">
+				<h2>Hãy theo dõi — trang web đang được xây dựng 🚧</h2>
+				<p>
+					Chúng tôi đang sắp xếp mọi thứ. Hãy quay lại sớm để đọc các bài viết,
+					những suy ngẫm và ghi chú thực hành từ cộng đồng.
+				</p>
+			</section>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 3em 1em;
+			}
+			.hero {
+				text-align: center;
+				margin-bottom: 4rem;
+				padding-top: 2rem;
+			}
+			.hero h1 {
+				font-size: 2.5rem;
+				margin: 0 0 0.5rem;
+			}
+			.lead {
+				font-size: 1.15rem;
+				color: rgb(var(--gray-dark));
+				max-width: 640px;
+				margin: 0 auto;
+			}
+			.pillars {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 2rem;
+				margin-bottom: 4rem;
+			}
+			.pillars article {
+				text-align: center;
+			}
+			.pillars img {
+				width: 100%;
+				height: 160px;
+				object-fit: cover;
+				border-radius: 10px;
+				margin-bottom: 1rem;
+			}
+			.pillars h2 {
+				font-size: 1.25rem;
+				margin: 0 0 0.5rem;
+			}
+			.pillars p {
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
+				margin: 0;
+			}
+			.cta {
+				text-align: center;
+				padding: 2rem 1rem;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.cta h2 {
+				margin: 0 0 0.5rem;
+			}
+		</style>
+	</body>
+</html>

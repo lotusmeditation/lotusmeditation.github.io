@@ -1,25 +1,63 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+
+const locale = Astro.currentLocale ?? 'en';
+const homeUrl = getRelativeLocaleUrl(locale, '');
+const aboutUrl = getRelativeLocaleUrl(locale, 'about');
+
+const segments = Astro.url.pathname.split('/').filter(Boolean);
+const subpath = segments.slice(1).join('/');
+
+const languages = [
+	{ code: 'en', label: 'English' },
+	{ code: 'fr', label: 'Français' },
+	{ code: 'vi', label: 'Tiếng Việt' },
+];
+const current = languages.find((l) => l.code === locale) ?? languages[0];
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2><a href={homeUrl}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href={homeUrl}>Home</HeaderLink>
 			<!-- Blog disabled until content is ready -->
-			<!-- <HeaderLink href="/blog">Blog</HeaderLink> -->
-			<HeaderLink href="/about">About</HeaderLink>
+			<!-- <HeaderLink href={getRelativeLocaleUrl(locale, 'blog')}>Blog</HeaderLink> -->
+			<HeaderLink href={aboutUrl}>About</HeaderLink>
 		</div>
-		<div class="social-links">
-			<a href="https://en.wikipedia.org/wiki/Meditation" target="_blank" rel="noopener noreferrer" title="Meditation on Wikipedia">
-				<span class="sr-only">Meditation on Wikipedia</span>
-				<img src="/wikipedia.ico" alt="" width="32" height="32" />
-			</a>
+		<div class="right-links">
+			<div class="lang-menu">
+				<button class="lang-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Choose language" title="Choose language">
+					<svg class="globe" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="12" cy="12" r="10"></circle>
+						<path d="M2 12h20"></path>
+						<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+					</svg>
+					<span class="current">{current.label}</span>
+					<svg class="chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+						<path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+				</button>
+				<ul class="lang-panel" role="menu">
+					{languages.map((l) => (
+						<li role="none">
+							<a
+								role="menuitem"
+								href={getRelativeLocaleUrl(l.code, subpath)}
+								hreflang={l.code}
+								aria-current={l.code === locale ? 'true' : undefined}
+								class:list={['lang-item', { active: l.code === locale }]}
+							>{l.label}</a>
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	</nav>
 </header>
+
 <style>
 	header {
 		margin: 0;
@@ -47,8 +85,11 @@ import { SITE_TITLE } from '../consts';
 	.internal-links {
 		justify-self: center;
 	}
-	.social-links {
+	.right-links {
 		justify-self: end;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
 	}
 	nav a {
 		padding: 1em 0.5em;
@@ -60,12 +101,98 @@ import { SITE_TITLE } from '../consts';
 		text-decoration: none;
 		border-bottom-color: var(--accent);
 	}
-	.social-links,
-	.social-links a {
-		display: flex;
+	/* Language popdown */
+	.lang-menu {
+		position: relative;
 	}
+	.lang-trigger {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		cursor: pointer;
+		height: 2.25rem;
+		padding: 0 0.75rem;
+		margin: 0;
+		border: none;
+		border-radius: 6px;
+		font-size: 0.85rem;
+		line-height: 1;
+		font-family: inherit;
+		color: rgb(var(--gray-dark));
+		background: transparent;
+		transition: color 0.15s ease, background-color 0.15s ease;
+	}
+	.lang-trigger > svg {
+		display: block;
+		flex-shrink: 0;
+	}
+	.lang-trigger > .current {
+		display: inline-flex;
+		align-items: center;
+		line-height: 1;
+	}
+	.lang-menu:hover .lang-trigger,
+	.lang-menu:focus-within .lang-trigger,
+	.lang-trigger:hover {
+		color: rgb(var(--black));
+	}
+	.lang-trigger .chevron {
+		transition: transform 0.2s ease;
+	}
+	.lang-menu:hover .lang-trigger .chevron,
+	.lang-menu:focus-within .lang-trigger .chevron {
+		transform: rotate(180deg);
+	}
+	.lang-panel {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin: 0;
+		padding: 0.4rem 0;
+		list-style: none;
+		min-width: 12rem;
+		background: white;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 8px;
+		box-shadow: 0 8px 24px rgba(var(--black), 10%);
+		z-index: 20;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-4px);
+		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+	}
+	.lang-menu:hover .lang-panel,
+	.lang-menu:focus-within .lang-panel {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s;
+	}
+	.lang-panel li {
+		margin: 0;
+	}
+	.lang-panel .lang-item {
+		display: block;
+		padding: 0.55rem 0.9rem;
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+		text-decoration: none;
+		border-bottom: none;
+	}
+	.lang-panel .lang-item:hover {
+		background: rgb(var(--gray-light));
+		color: rgb(var(--black));
+	}
+	.lang-panel .lang-item.active {
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+
 	@media (max-width: 720px) {
-		.social-links {
+		.lang-trigger {
+			padding: 0 0.6rem;
+		}
+		.lang-trigger .current {
 			display: none;
 		}
 	}
