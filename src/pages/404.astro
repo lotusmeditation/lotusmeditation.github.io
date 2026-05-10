@@ -1,0 +1,126 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`404 — Page not found · ${SITE_TITLE}`}
+			description="This page wandered off the path. Take a breath, then find your way home."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="not-found">
+				<div class="lotus" aria-hidden="true">🪷</div>
+				<p class="code">404</p>
+				<h1>This page wandered off the path</h1>
+				<p class="lead">
+					The page you're looking for isn't here — perhaps it was moved,
+					or perhaps it was never meant to be found. Either way, take a breath.
+				</p>
+
+				<blockquote>
+					<p>“Wherever you go, there you are.”</p>
+					<cite>— Jon Kabat-Zinn</cite>
+				</blockquote>
+
+				<div class="actions">
+					<a class="btn primary" href="/">Return home</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<style>
+			main {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 4em 1em;
+			}
+			.not-found {
+				text-align: center;
+			}
+			.lotus {
+				font-size: 4rem;
+				line-height: 1;
+				margin-bottom: 1rem;
+				animation: float 4s ease-in-out infinite;
+			}
+			.code {
+				font-size: 0.9rem;
+				letter-spacing: 0.3em;
+				color: rgb(var(--gray));
+				margin: 0 0 0.5rem;
+				text-transform: uppercase;
+			}
+			h1 {
+				font-size: 2.25rem;
+				margin: 0 0 1rem;
+			}
+			.lead {
+				font-size: 1.1rem;
+				color: rgb(var(--gray-dark));
+				max-width: 520px;
+				margin: 0 auto 2.5rem;
+			}
+			blockquote {
+				border-left: 3px solid rgb(var(--gray-light));
+				margin: 0 auto 2.5rem;
+				padding: 0.75rem 1.5rem;
+				max-width: 480px;
+				text-align: left;
+				color: rgb(var(--gray-dark));
+				font-style: italic;
+			}
+			blockquote p {
+				margin: 0 0 0.25rem;
+			}
+			blockquote cite {
+				font-size: 0.9rem;
+				font-style: normal;
+				color: rgb(var(--gray));
+			}
+			.actions {
+				display: flex;
+				gap: 0.75rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.65rem 1.4rem;
+				border-radius: 999px;
+				border: 1px solid rgb(var(--gray-light));
+				color: rgb(var(--black));
+				text-decoration: none;
+				font-size: 0.95rem;
+				transition: background-color 0.2s ease, border-color 0.2s ease;
+			}
+			.btn:hover {
+				background-color: rgb(var(--gray-light));
+			}
+			.btn.primary {
+				background-color: var(--accent, #2337ff);
+				border-color: var(--accent, #2337ff);
+				color: #fff;
+			}
+			.btn.primary:hover {
+				background-color: var(--accent-dark, #000d8a);
+				border-color: var(--accent-dark, #000d8a);
+			}
+			@keyframes float {
+				0%, 100% { transform: translateY(0); }
+				50% { transform: translateY(-8px); }
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.lotus { animation: none; }
+			}
+		</style>
+	</body>
+</html>
