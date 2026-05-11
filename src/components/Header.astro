@@ -2,6 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import lotusLogo from '../assets/icons8-flower-64.png';
 
 const locale = Astro.currentLocale ?? 'en';
 const homeUrl = getRelativeLocaleUrl(locale, '');
@@ -20,7 +21,12 @@ const current = languages.find((l) => l.code === locale) ?? languages[0];
 
 <header>
 	<nav>
-		<h2><a href={homeUrl}>{SITE_TITLE}</a></h2>
+		<h2>
+			<a href={homeUrl} class="brand">
+				<img class="brand-logo" src={lotusLogo.src} width="32" height="32" alt="" aria-hidden="true" />
+				<span class="brand-title">{SITE_TITLE}</span>
+			</a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href={homeUrl}>Home</HeaderLink>
 			<!-- Blog disabled until content is ready -->
@@ -84,6 +90,18 @@ const current = languages.find((l) => l.code === locale) ?? languages[0];
 	nav h2 {
 		display: flex;
 		align-items: center;
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5em 0.25em;
+	}
+	.brand-logo {
+		display: block;
+		width: 32px;
+		height: 32px;
+		flex-shrink: 0;
 	}
 	.internal-links {
 		display: flex;
@@ -200,6 +218,9 @@ const current = languages.find((l) => l.code === locale) ?? languages[0];
 			padding: 0 0.6rem;
 		}
 		.lang-trigger .current {
+			display: none;
+		}
+		.brand-title {
 			display: none;
 		}
 	}
