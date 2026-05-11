@@ -2,7 +2,10 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import lotusFavico from '../assets/icons8-flower-32.png';
+import lotusLogo from '../assets/icons8-flower-64.png';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
 	title: string;
@@ -13,6 +16,30 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+
+const locales = ['en', 'fr', 'vi'] as const;
+const defaultLocale = 'en';
+const currentLocale = (Astro.currentLocale ?? defaultLocale) as (typeof locales)[number];
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const subpath = locales.includes(pathSegments[0] as (typeof locales)[number])
+	? pathSegments.slice(1).join('/')
+	: pathSegments.join('/');
+
+const alternates = locales.map((code) => ({
+	code,
+	href: new URL(getRelativeLocaleUrl(code, subpath), Astro.site).toString(),
+}));
+const xDefaultHref = new URL(getRelativeLocaleUrl(defaultLocale, subpath), Astro.site).toString();
+
+const orgSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'NGO',
+	name: SITE_TITLE,
+	url: Astro.site?.toString(),
+	description: SITE_DESCRIPTION,
+	logo: new URL(lotusLogo.src, Astro.site).toString(),
+	inLanguage: locales,
+};
 ---
 
 <!-- Global Metadata -->
@@ -27,6 +54,12 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- hreflang alternates -->
+{alternates.map((alt) => (
+	<link rel="alternate" hreflang={alt.code} href={alt.href} />
+))}
+<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -46,3 +79,6 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Structured data -->
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />

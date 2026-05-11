@@ -13,10 +13,8 @@ export default defineConfig({
 		fallback: { fr: "en", vi: "en" },
 		routing: {
 			prefixDefaultLocale: true,
+			redirectToDefaultLocale: false,
 			fallbackType: "rewrite",
 		},
-	},
-	redirects: {
-		"/": "/en/",
 	},
 });

@@ -1,0 +1,53 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const locales = ['en', 'fr', 'vi'] as const;
+const defaultLocale = 'en';
+const canonical = `${Astro.site}${defaultLocale}/`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>{SITE_TITLE}</title>
+		<meta name="description" content={SITE_DESCRIPTION} />
+		<link rel="canonical" href={canonical} />
+		{locales.map((code) => (
+			<link rel="alternate" hreflang={code} href={`${Astro.site}${code}/`} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={canonical} />
+		<script is:inline define:vars={{ locales, defaultLocale }}>
+			(function () {
+				try {
+					var stored = localStorage.getItem('preferredLocale');
+					var pick = null;
+					if (stored && locales.indexOf(stored) !== -1) {
+						pick = stored;
+					} else {
+						var langs = navigator.languages && navigator.languages.length
+							? navigator.languages
+							: [navigator.language || ''];
+						for (var i = 0; i < langs.length && !pick; i++) {
+							var tag = (langs[i] || '').toLowerCase().split('-')[0];
+							if (locales.indexOf(tag) !== -1) pick = tag;
+						}
+					}
+					location.replace('/' + (pick || defaultLocale) + '/');
+				} catch (e) {
+					location.replace('/' + defaultLocale + '/');
+				}
+			})();
+		</script>
+		<noscript>
+			<meta http-equiv="refresh" content={`0;url=/${defaultLocale}/`} />
+		</noscript>
+	</head>
+	<body>
+		<p>
+			Redirecting… If you are not redirected automatically,
+			<a href={`/${defaultLocale}/`}>continue here</a>.
+		</p>
+	</body>
+</html>

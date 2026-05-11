@@ -53,6 +53,7 @@ const current = languages.find((l) => l.code === locale) ?? languages[0];
 								role="menuitem"
 								href={getRelativeLocaleUrl(l.code, subpath)}
 								hreflang={l.code}
+								data-locale={l.code}
 								aria-current={l.code === locale ? 'true' : undefined}
 								class:list={['lang-item', { active: l.code === locale }]}
 							>{l.label}</a>
@@ -63,6 +64,16 @@ const current = languages.find((l) => l.code === locale) ?? languages[0];
 		</div>
 	</nav>
 </header>
+
+<script is:inline>
+	document.querySelectorAll('a.lang-item[data-locale]').forEach((a) => {
+		a.addEventListener('click', () => {
+			try {
+				localStorage.setItem('preferredLocale', a.getAttribute('data-locale'));
+			} catch (e) {}
+		});
+	});
+</script>
 
 <style>
 	header {
